@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birru Jayasri - Data Science Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --text: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-text h2 {
+            font-size: 2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            animation: fadeIn 1s ease 0.8s both;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        .contact-info {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .contact-info a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .experience {
+            background: var(--light);
+        }
+
+        .experience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary);
+        }
+
+        .experience-card h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .company {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .duration {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .experience-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .project-body {
+            padding: 2rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: var(--light);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid var(--primary);
+        }
+
+        .education {
+            background: var(--light);
+        }
+
+        .education-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .education-card h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .cert-card:hover {
+            transform: scale(1.05);
+        }
+
+        .cert-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact .section-title::after {
+            background: white;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">BJ</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Birru Jayasri</h1>
+                <h2>Data Science Engineer</h2>
+                <p>Building intelligent solutions with Machine Learning, Deep Learning, and Data Analytics. 1+ year of experience transforming data into actionable insights.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#projects" class="btn btn-outline">View Projects</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <div class="profile-icon">👩‍💻</div>
+                    <h3>Data Science Engineer</h3>
+                    <p>L&T Technology Services</p>
+                    <div class="contact-info">
+                        <p>📍 Hyderabad, Telangana</p>
+                        <p>📧 <a href="mailto:jayasribirrusweety@gmail.com">jayasribirrusweety@gmail.com</a></p>
+                        <p>📱 +91-9603610287</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>🤖 Core Competencies</h3>
+                <div class="skill-tags">
+                    <span class="tag">Data Science</span>
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">Deep Learning</span>
+                    <span class="tag">NLP</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>💻 Programming Languages</h3>
+                <div class="skill-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">Java</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>🧠 ML/DL Frameworks</h3>
+                <div class="skill-tags">
+                    <span class="tag">scikit-learn</span>
+                    <span class="tag">TensorFlow</span>
+                    <span class="tag">Keras</span>
+                    <span class="tag">PyTorch</span>
+                    <span class="tag">OpenCV</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>📊 Python Libraries</h3>
+                <div class="skill-tags">
+                    <span class="tag">NumPy</span>
+                    <span class="tag">Pandas</span>
+                    <span class="tag">Matplotlib</span>
+                    <span class="tag">Seaborn</span>
+                    <span class="tag">NLTK</span>
+                    <span class="tag">SpaCy</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>🗄️ Database & Tools</h3>
+                <div class="skill-tags">
+                    <span class="tag">SQL</span>
+                    <span class="tag">NoSQL</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">Jupyter</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>⚙️ OOP Concepts</h3>
+                <div class="skill-tags">
+                    <span class="tag">Design Patterns</span>
+                    <span class="tag">SOLID Principles</span>
+                    <span class="tag">Polymorphism</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="experience-card">
+            <h3>Associate Engineer (Data Science)</h3>
+            <div class="company">L&T Technology Services</div>
+            <div class="duration">March 2024 - Present (1 Year 8 Months) | Hyderabad</div>
+            <ul>
+                <li>Developed and deployed machine learning models for predictive analytics, improving accuracy by 25% through feature engineering and hyperparameter optimization</li>
+                <li>Built data processing workflows using Python (Pandas, NumPy) to analyze and transform large datasets, reducing data processing time by 40%</li>
+                <li>Implemented deep learning models using TensorFlow and Keras for computer vision applications, achieving 92% accuracy on image classification tasks</li>
+                <li>Designed reusable Python modules following object-oriented programming principles for data processing and model training</li>
+                <li>Optimized SQL queries and database operations, improving data retrieval efficiency by 35%</li>
+                <li>Applied data structures and algorithms to optimize performance for large-scale data processing tasks</li>
+                <li>Created interactive data visualization dashboards using Matplotlib and Seaborn for stakeholder reporting</li>
+                <li>Collaborated with cross-functional teams in Agile environment, delivering ML-powered features on schedule</li>
+                <li>Integrated ML models with REST APIs and React.js frontends for real-time predictions and user interaction</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">😊</div>
+                    <h3>Facial Expression Recognition System</h3>
+                </div>
+                <div class="project-body">
+                    <p>Designed and trained a CNN to detect and classify 7 facial expressions from images and live video streams with 88% accuracy. Implemented real-time emotion detection using OpenCV and deep learning models.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">Deep Learning</span>
+                        <span class="tech-tag">CNN</span>
+                        <span class="tech-tag">Transfer Learning</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">💬</div>
+                    <h3>Sentiment & Toxicity Analysis</h3>
+                </div>
+                <div class="project-body">
+                    <p>Built an NLP-based system to perform sentiment analysis and detect toxic content in movie reviews with 85% F1-score. Implemented text preprocessing pipeline and developed classification models using LSTM networks.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">NLTK</span>
+                        <span class="tech-tag">LSTM</span>
+                        <span class="tech-tag">TF-IDF</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📈</div>
+                    <h3>Predictive Analytics Dashboard</h3>
+                </div>
+                <div class="project-body">
+                    <p>Created a full-stack predictive analytics application combining ML backend with interactive frontend. Implemented regression and classification models to forecast business metrics with REST API integration.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">React.js</span>
+                        <span class="tech-tag">REST API</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="education">
+        <h2 class="section-title">Education</h2>
+        <div class="education-card">
+            <h3>B.Tech in Electronics & Communication Engineering</h3>
+            <p style="font-size: 1.2rem; color: var(--secondary); margin: 1rem 0;"><strong>Minor in AI/ML</strong></p>
+            <p style="font-size: 1.1rem; margin: 0.5rem 0;">Vignana Bharathi Institute of Technology</p>
+            <p style="color: #64748b; margin: 0.5rem 0;">2019 - 2023</p>
+            <p style="font-size: 1.3rem; color: var(--primary); margin-top: 1rem;"><strong>CGPA: 8.09/10</strong></p>
+        </div>
+    </section>
+
+    <section id="certifications">
+        <h2 class="section-title">Certifications</h2>
+        <div class="certifications-grid">
+            <div class="cert-card">
+                <div class="cert-icon">🤖</div>
+                <h4>AI-ML Virtual Internship</h4>
+                <p>AICTE Eduskills</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">🔒</div>
+                <h4>Cyber Security Internship</h4>
+                <p>AICTE Eduskills</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">⚡</div>
+                <h4>Salesforce Developer Catalyst</h4>
+                <p>SmartInternz & AICTE</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">I'm an immediate joiner looking for exciting opportunities in Data Science!</p>
+        <div class="contact-links">
+            <a href="mailto:jayasribirrusweety@gmail.com" class="contact-link">
+                📧 Email Me
+            </a>
+            <a href="https://www.linkedin.com/in/birru-jayasri-a8a0841aa" target="_blank" class="contact-link">
+                🔗 LinkedIn
+            </a>
+            <a href="tel:+919603610287" class="contact-link">
+                📱 Call Me
+            </a>
+        </div>
+        <p style="margin-top: 2rem; font-size: 1.1rem;">📍 Location Preference: Hyderabad</p>
+        <p style="margin-top: 0.5rem;">✓ Immediate Joiner | Valid BGV Documents | PF Compliant</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Birru Jayasri. Built with passion for Data Science.</p>
+    </footer>
+</body>
+</html>
